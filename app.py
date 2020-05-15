@@ -27,7 +27,6 @@ class SignUp(db.Model):
 def home():
     return "Hello, World!"  # return a string
 
-
 @app.route('/welcome')
 def welcome():
     return render_template('welcome.html')  # render a template
@@ -57,7 +56,7 @@ def signup():
             db.session.commit()
             return redirect('/login')
         except:
-            return "Change to to check if the username is alredy taken"       
+            error = "Change to to check if the username is alredy taken"       
     return render_template('signup.html', error=error)
 
 @app.route('/profile', methods=['POST', 'GET'])
