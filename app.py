@@ -6,7 +6,7 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 # create the application object
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 # configuring databases and the relative path 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
