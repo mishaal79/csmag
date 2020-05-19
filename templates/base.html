@@ -6,11 +6,12 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
-
+  
   <!-- Google Fonts -->
-
+  
   <!-- Main Stylesheet File -->
-  <link href="style.css" rel="stylesheet">
+  <!-- <link href="static/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+  <link href="static/style.css" rel="stylesheet" media="screen">
 </head>
 
 <body>
@@ -55,16 +56,17 @@
     </div>
   </header><!-- #header -->
 
-  <!--==========================
-    Hero Section
-  ============================-->
-  <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to CSmag</h1>
-      <h2>Where all CS related queries are solved</h2>
-      <a href="#login" class="btn-login">Login</a>
-    </div>
-  </section><!-- #hero -->
+          <!-- flash messages -->
+          {% for info_message in get_flashed_messages() %}
+          <div class="alert alert-info alert-dismissible">{{ info_message }}</div>
+          {% endfor %}
+          
+          <div class="container text-muted">
+          
+            <!-- child template -->
+            {% block content %}
+            {% endblock %}
+
 
 <!--==========================
     Footer
