@@ -6,13 +6,13 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 # create the application object
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 # configuring databases and the relative path 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 db = SQLAlchemy(app)
 
 # create table with fields
-class SignUp(db.Model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(20), unique = True)
     password = db.Column(db.String(20))
@@ -50,7 +50,7 @@ def signup():
         user_username = request.form['username']
         user_password = request.form['password']
         user_email = request.form['email']
-        new_user = SignUp(username=user_username,password=user_password,email=user_email)   
+        new_user = User(username=user_username,password=user_password,email=user_email)   
         try:
             db.session.add(new_user)
             db.session.commit()
