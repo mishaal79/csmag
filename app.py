@@ -25,12 +25,8 @@ class User(db.Model):
 # use decorators to link the function to a url
 @app.route('/')
 def home():
-    return "Hello, World!"  # return a string
-
-@app.route('/welcome')
-def welcome():
     return render_template('welcome.html')  # render a template
-
+    
 # Route for handling the login page logic
 @app.route('/login', methods=['GET', 'POST'])
 def login():
