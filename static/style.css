@@ -4,6 +4,11 @@ body {
   font-family: "Open Sans", sans-serif;
 }
 
+.error{
+  padding: 5px;
+  color: #fff;
+}
+
 a {
   color: #2dc997;
 }
