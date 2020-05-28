@@ -1,27 +1,57 @@
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Flask Intro - login page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="static/main.css" rel="stylesheet" media="screen">
-</head>
+{% set title = 'Personal Page' %}
 
-<body>
-    <div class="container">
-        <h1>Please login</h1>
-        <br>
-        <form action="" method="post">
-            <input type="text" placeholder="Username" name="username" value="{{
-          request.form.username }}">
-            <input type="password" placeholder="Password" name="password" value="{{
-          request.form.password }}">
-            <input class="btn btn-default" type="submit" value="Login">
-        </form>
-        {% if error %}
-        <p class="error"><strong>Error:</strong> {{ error }}
-        {% endif %}
-    </div>
-</body>
+{% block content %}
 
-</html>
+<!--==========================
+         ID Section
+  ============================-->
+  <section id="hero">
+  <div class="hero-container">
+        {% if current_user.username %}
+            <h1>Hello, {{ current_user.username }}!</h1>
+        {% for post in posts %}
+        <div><p>{{ post.author.username }} says: <b>{{ post.body }}</b></p></div>
+        {% endfor %}
+        
+  <form id="form">
+    <h2> My area of interest is: </h2>
+  <label for="path"></label>
+  <div class="path-drop">
+  <select id="path" name="path">
+    <option value="CLOUD-COMP">Cloud Computing</option>
+    <option value="SOFT-DEV">Software Development</option>
+    <option value="DATA-SCI">Data Science</option>
+    <option value="CYBER_SEC">Cyber Security</option>
+    <option value="GAME-DEV">Game Development</option>
+  </select>
+</div>
+  <br><br>
+
+    <h2>Languages I can code in:</h2>
+  <input type="checkbox" id="language1" name="language1" value="Python">
+  <label for="language1"> Python</label><br>
+  <input type="checkbox" id="language2" name="language2" value="Csharp">
+  <label for="language2"> C#</label><br>
+  <input type="checkbox" id="language3" name="language3" value="Ruby">
+  <label for="language3"> Ruby</label><br>
+  <input type="checkbox" id="language4" name="language4" value="Java">
+  <label for="language4"> Java</label><br>
+  <input type="checkbox" id="language5" name="language5" value="Cplusplus">
+  <label for="language5"> C++</label><br><br>
+</form>
+  <section id="hero">
+    <div class="hero-container">
+  <textarea name="bio" rows="10" cols="30">Write a bit about yourself.</textarea>
+  <br><br>
+  </div>
+</section>
+        {% else %}
+        <h1>Please Log In or Sign Up!</h1>
+      {% endif %}
+
+</form>
+ </div>
+</section>
+{% endblock %}
