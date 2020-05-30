@@ -31,9 +31,13 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(20))
     email = db.Column(db.String(50))
     sign_up_date = db.Column(db.DateTime, default = datetime.utcnow)
+    path = db.Column(db.String(50))
+    languages = db.Column(db.String(50))
 
     def __repr__(self):
        return '<Users %r>' % self.id
+
+db.create_all()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -58,7 +62,7 @@ def login():
             login_user(user)
             return redirect('/profile')
         except:
-            error = "The user does not exist"
+            error = "The user does not exist, please sign up for an account"
     return render_template('login.html', error=error)
 
 # Route for handling the signup page logic
@@ -87,7 +91,26 @@ def signup():
 
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
-    return render_template("profile.html")
+    error = None
+    user_username = current_user.username
+    user = User.query.filter_by(username=user_username).first()
+    if request.method == 'POST':
+        user_path = request.form['path']
+        languages = request.form.getlist('languages')
+        user_languages =  ",".join(languages)
+        user.path = user_path
+        user.languages = user_languages
+        try:
+            db.session.commit()
+            return redirect('/profile')
+        except:
+            if not user_username:
+                error = 'Username is required.'
+            elif not user_path:
+                error = 'A career path is required.'
+            elif not user_languages:
+                error = 'A preferred language is required'
+    return render_template("profile.html", error=error)
 
 @app.route('/logout')
 def logout():
