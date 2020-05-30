@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
     sign_up_date = db.Column(db.DateTime, default = datetime.utcnow)
     path = db.Column(db.String(50))
     languages = db.Column(db.String(50))
+    about = db.Column(db.Text())
 
     def __repr__(self):
        return '<Users %r>' % self.id
@@ -96,6 +97,7 @@ def profile():
     user = User.query.filter_by(username=user_username).first()
     if request.method == 'POST':
         user_path = request.form['path']
+        user_about = request.form['about']
         languages = request.form.getlist('languages')
         user_languages =  ",".join(languages)
         user.path = user_path
@@ -110,6 +112,8 @@ def profile():
                 error = 'A career path is required.'
             elif not user_languages:
                 error = 'A preferred language is required'
+            elif not user_about:
+                error = 'An about bio is required'
     return render_template("profile.html", error=error)
 
 @app.route('/logout')

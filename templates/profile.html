@@ -26,6 +26,12 @@
               </p>
               {% endif %}
             <form id="form" action="" method="post">
+              <h2>About me</h2>
+              {%if current_user.about %}
+                <textarea name="about" rows="10" cols="30">{{current_user.about}}</textarea>
+              {% else %}
+                <textarea name="about" rows="10" cols="30" placeholder="Write about yourself"></textarea>
+                {% endif %}
               <h2> My area of interest is: </h2>
             <label for="path"></label>
             <div class="path-drop">
@@ -51,12 +57,6 @@
             <label for="language5"> C++</label><br><br>
           <input class="btn btn-default" type="submit" value="Update Profile">
           </form>
-            <section id="hero">
-              <div class="hero-container">
-            <textarea name="bio" rows="10" cols="30">Write a bit about yourself.</textarea>
-            <br><br>
-            </div>
-          </section>
         {% else %}
           <h1>Please Log In or Sign Up!</h1>
       {% endif %}
