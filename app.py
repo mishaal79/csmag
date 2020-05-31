@@ -101,11 +101,12 @@ def profile():
         render_template("profile.html", error=error)
     if request.method == 'POST':
         user_path = request.form['path']
-        user_about = request.form['about']
+        user_about = (request.form['about']).strip()
         languages = request.form.getlist('languages')
         user_languages =  ",".join(languages)
         user.path = user_path
         user.languages = user_languages
+        user.about = user_about
         try:
             db.session.commit()
             return redirect('/profile')
