@@ -6,3 +6,4 @@ env
 package-lock.json
 .vscode
 .DS_Store
+users.db

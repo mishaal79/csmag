@@ -93,8 +93,12 @@ def signup():
 @app.route('/profile', methods=['POST', 'GET'])
 def profile():
     error = None
-    user_username = current_user.username
-    user = User.query.filter_by(username=user_username).first()
+    try:
+        user_username = current_user.username
+        user = User.query.filter_by(username=user_username).first()
+    except:
+        error = "Please Log In or Sign Up!"
+        render_template("profile.html", error=error)
     if request.method == 'POST':
         user_path = request.form['path']
         user_about = request.form['about']
